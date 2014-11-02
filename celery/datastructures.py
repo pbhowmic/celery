@@ -16,9 +16,9 @@ from heapq import heapify, heappush, heappop
 from functools import partial
 from itertools import chain
 
-from billiard.einfo import ExceptionInfo  # noqa
+#from billiard.einfo import ExceptionInfo  # noqa
 from kombu.utils.encoding import safe_str
-from kombu.utils.limits import TokenBucket  # noqa
+#from kombu.utils.limits import TokenBucket  # noqa
 
 from celery.five import items
 from celery.utils.functional import LRUCache, first, uniq  # noqa

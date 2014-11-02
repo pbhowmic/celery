@@ -10,7 +10,6 @@ from __future__ import absolute_import
 
 import sys
 
-from billiard.einfo import ExceptionInfo
 
 from celery import current_app, group
 from celery import states
@@ -604,6 +603,7 @@ class Task(object):
 
         """
         # trace imports Task, so need to import inline.
+        from billiard.einfo import ExceptionInfo
         from celery.app.trace import build_tracer
 
         app = self._get_app()

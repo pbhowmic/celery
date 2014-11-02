@@ -21,7 +21,6 @@ import warnings
 
 from collections import namedtuple
 
-from billiard import current_process
 # fileno used to be in this module
 from kombu.utils import maybe_fileno
 from kombu.utils.encoding import safe_str
@@ -704,6 +703,8 @@ else:
         Only works if :mod:`setproctitle` is installed.
 
         """
+        from billiard import current_process
+
         if hostname:
             progname = '{0}: {1}'.format(progname, hostname)
         return set_process_title(

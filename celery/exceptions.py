@@ -12,9 +12,9 @@ import numbers
 
 from .five import string_t
 
-from billiard.exceptions import (  # noqa
-    SoftTimeLimitExceeded, TimeLimitExceeded, WorkerLostError, Terminated,
-)
+# from billiard.exceptions import (  # noqa
+#    SoftTimeLimitExceeded, TimeLimitExceeded, WorkerLostError, Terminated,
+#)
 
 __all__ = ['SecurityError', 'Ignore', 'QueueNotFound',
            'WorkerShutdown', 'WorkerTerminate',
@@ -23,8 +23,9 @@ __all__ = ['SecurityError', 'Ignore', 'QueueNotFound',
            'TaskRevokedError', 'NotConfigured', 'AlwaysEagerIgnored',
            'InvalidTaskError', 'ChordError', 'CPendingDeprecationWarning',
            'CDeprecationWarning', 'FixupWarning', 'DuplicateNodenameWarning',
-           'SoftTimeLimitExceeded', 'TimeLimitExceeded', 'WorkerLostError',
-           'Terminated']
+           #'SoftTimeLimitExceeded', 'TimeLimitExceeded', 'WorkerLostError',
+           #'Terminated'
+]
 
 UNREGISTERED_FMT = """\
 Task of kind {0} is not registered, please make sure it's imported.\
@@ -57,6 +58,8 @@ class Reject(Exception):
 
 class WorkerTerminate(SystemExit):
     """Signals that the worker should terminate immediately."""
+
+
 SystemTerminate = WorkerTerminate  # XXX compat
 
 
@@ -106,6 +109,7 @@ class Retry(Exception):
 
     def __init__(self, message=None, exc=None, when=None, **kwargs):
         from kombu.utils.encoding import safe_repr
+
         self.message = message
         if isinstance(exc, string_t):
             self.exc, self.excs = None, exc
@@ -128,7 +132,9 @@ class Retry(Exception):
 
     def __reduce__(self):
         return self.__class__, (self.message, self.excs, self.when)
-RetryTaskError = Retry   # XXX compat
+
+
+RetryTaskError = Retry  # XXX compat
 
 
 class TaskRevokedError(Exception):

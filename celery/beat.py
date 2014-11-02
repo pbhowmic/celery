@@ -19,7 +19,6 @@ import traceback
 from collections import namedtuple
 from threading import Event, Thread
 
-from billiard import Process, ensure_multiprocessing
 from billiard.common import reset_signals
 from kombu.utils import cached_property, reprcall
 from kombu.utils.functional import maybe_evaluate
@@ -541,10 +540,12 @@ class _Threaded(Thread):
 
 
 try:
+    from billiard import ensure_multiprocessing
     ensure_multiprocessing()
 except NotImplementedError:     # pragma: no cover
     _Process = None
 else:
+    from billiard import Process
     class _Process(Process):    # noqa
 
         def __init__(self, *args, **kwargs):

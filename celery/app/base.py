@@ -12,12 +12,13 @@ import os
 import threading
 import warnings
 
+import weakref
+import itertools
 from collections import defaultdict, deque
 from copy import deepcopy
 from operator import attrgetter
 
 from amqp import promise
-from billiard.util import register_after_fork
 from kombu.clocks import LamportClock
 from kombu.common import oid_from
 from kombu.utils import cached_property, uuid
@@ -93,6 +94,12 @@ def _global_after_fork(obj):
             if mputil._logger:
                 mputil._logger.info(
                     'after forker raised exception: %r', exc, exc_info=1)
+
+_afterfork_registry = weakref.WeakValueDictionary()
+_afterfork_counter = itertools.count()
+
+def register_after_fork(obj, func):
+    _afterfork_registry[(_afterfork_counter.next(), id(obj), func)] = obj
 
 
 def _ensure_after_fork():
