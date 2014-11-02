@@ -11,6 +11,13 @@
 :Keywords: task queue, job queue, asynchronous, async, rabbitmq, amqp, redis,
   python, webhooks, queue, distributed
 
+
+This is the same celery you will find in celery/celery @github. The changes I have made to it makes it possible to use this 
+on App Engine which is pretty hostile to multithreading and multiprocessing. Also changed: I forked  
+celery/billiard and celery/py-amqp. Together, all these changes make it possible to use this celery + billiard + 
+py-ampq combo to piublish from app engine. I have only ever tested this for a RabbitMQ broker running on 
+Compute Engine.
+
 --
 
 What is a Task Queue?
